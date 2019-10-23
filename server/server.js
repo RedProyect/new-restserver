@@ -1,50 +1,35 @@
-const config = require('./config/config.js')
+require('./config/config.js')
 const express = require('express')
+const mongoose = require('mongoose');
 const app = express()
+
+const Usuario = require('./routes/usuario')
+
 const bodyParser = require('body-parser')
 
+
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }))
  
 // parse application/json
 app.use(bodyParser.json())
 
+app.use( Usuario );
 
-const port = process.env.port || 3000;
+
  
-app.get('/usuario', function (req, res) {
-  res.json('getUsuario')
+mongoose.connect( process.env.URLDB,
+  {useNewUrlParser: true,
+   useCreateIndex: true, 
+   useUnifiedTopology: true,
+   useCreateIndex: true,
+   useNewUrlParser: true}).then(() => {
+console.log("Connected to Database");
+}).catch((err) => {
+    console.log("Not Connected to Database ERROR! ", err);
 });
 
-app.post('/usuario', function (req, res) {
 
-  let body = req.body;
-
-  if(body.nombre === undefined){
-    res.status(400).json({
-      ok: false,
-      mensaje: "Necesita introducir un nombre de usuario"
-    })
-  }else{
-    res.json({
-      persona: body
-    })
-  }
-});
-
-app.put('/usuario/:id', function (req, res) {
-
-  let id = req.params.id;
-
-  res.json({
-    id
-  })
-});
-
-app.delete('/usuario', function (req, res) {
-  res.json('deleteUsuario')
-});
- 
 app.listen(process.env.PORT, () => {
     console.log(`Escuchando en el puerto ${process.env.PORT}`)
 });
