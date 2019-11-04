@@ -3,10 +3,12 @@ const bcrypt = require('bcrypt');
 const app = express.Router();
 const mongoose = require('mongoose');
 const _ = require('underscore');
+const jwt = require('jsonwebtoken')
 
 const Usuario = require('../models/usuario');
+const { verificarToken, verificar_AdminRole } = require('../middlewares/autenticacion');
 
-app.get('/usuario', function (req, res) {
+app.get('/usuario', verificarToken, function (req, res) {
     
    let desde = req.query.desde || 0;
    desde = Number(desde);
@@ -38,7 +40,7 @@ app.get('/usuario', function (req, res) {
     });                
 });       
   
-app.post('/usuario', function (req, res) {
+app.post('/usuario', [verificarToken, verificar_AdminRole], function (req, res) {
   
     let body = req.body;
 
@@ -55,18 +57,19 @@ app.post('/usuario', function (req, res) {
               ok: false,
               err
           });
-      }else{
-        res.json({
+      }
+
+      res.json({
           ok: true,
           usuario: usuarioDB
       });
-      }
+      
   });
   })
 
 
   
-  app.put('/usuario/:id', function (req, res) {
+  app.put('/usuario/:id', [verificarToken, verificar_AdminRole], function (req, res) {
   
     let id = req.params.id;
     let body = _.pick(req.body, ['nombre', 'email', 'img', 'role', 'estado']);
@@ -88,7 +91,7 @@ app.post('/usuario', function (req, res) {
     })
   })
   
-  app.delete('/usuario/:id', function (req, res) {
+  app.delete('/usuario/:id', [verificarToken, verificar_AdminRole],function (req, res) {
 
     let id = req.params.id;
 

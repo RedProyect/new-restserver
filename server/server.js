@@ -1,12 +1,10 @@
 require('./config/config.js')
+
 const express = require('express')
 const mongoose = require('mongoose');
 const app = express()
 
-const Usuario = require('./routes/usuario')
-
 const bodyParser = require('body-parser')
-
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -14,7 +12,9 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // parse application/json
 app.use(bodyParser.json())
 
-app.use( Usuario );
+//Configuracion de rutas
+app.use(require('./routes/index'));
+
 
 
  
