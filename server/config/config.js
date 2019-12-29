@@ -12,7 +12,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 //======================
 //  Fecha de expiracion
 //======================
-
+process.env.CADUCIDAD = 60 * 60 * 24 * 30;
 
 //================
 //     SEED
@@ -33,4 +33,8 @@ if( process.env.NODE_ENV === 'dev'){
 }
 process.env.URLDB = urlDB;
 
+//================
+// Google client ID
+//================
 
+process.env.CLIENT_ID = process.env.CLIENT_ID || '237810328270-j7admalgcbqts6degd113f1bq44i7pge.apps.googleusercontent.com';
