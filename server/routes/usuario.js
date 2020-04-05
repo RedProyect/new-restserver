@@ -1,12 +1,13 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
-const app = express.Router();
-const mongoose = require('mongoose');
+//const mongoose = require('mongoose');
 const _ = require('underscore');
-const jwt = require('jsonwebtoken')
+//const jwt = require('jsonwebtoken')
 
 const Usuario = require('../models/usuario');
 const { verificarToken, verificar_AdminRole } = require('../middlewares/autenticacion');
+
+const app = express();
 
 app.get('/usuario', verificarToken, function (req, res) {
     
@@ -85,7 +86,7 @@ app.post('/usuario', [verificarToken, verificar_AdminRole], function (req, res) 
         }else{
           res.json({
             id,
-            usuarioDB
+            usuario: usuarioDB
           })
         }
     })

@@ -26,7 +26,8 @@ mongoose.connect( process.env.URLDB,
    useCreateIndex: true, 
    useUnifiedTopology: true,
    useCreateIndex: true,
-   useNewUrlParser: true}).then(() => {
+   useNewUrlParser: true,
+   autoIndex: false}).then(() => {
 console.log("Connected to Database");
 }).catch((err) => {
     console.log("Not Connected to Database ERROR! ", err);

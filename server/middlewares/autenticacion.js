@@ -32,20 +32,17 @@ let verificarToken = (req, res, next) => {
 let verificar_AdminRole = (req, res, next) => {
 
     let usuario = req.usuario;
-    let role = usuario.role;
 
-    if ( role === 'ADMIN_ROLE' ){
+    if ( usuario.role === 'ADMIN_ROLE' ){
         next();
+    }else{
+        return res.status(404).json({
+            ok: false,
+            error: {
+                message: 'No eres administrador'
+            }
+        })
     }
-
-    return res.status(404).json({
-        ok: false,
-        error: {
-            message: 'No eres administrador'
-        }
-    })
-
-
 }
 
 
