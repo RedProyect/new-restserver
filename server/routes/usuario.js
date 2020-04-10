@@ -41,7 +41,7 @@ app.get('/usuario', verificarToken, function (req, res) {
     });                
 });       
   
-app.post('/usuario', [verificarToken, verificar_AdminRole], function (req, res) {
+app.post('/usuario', function (req, res) {
   
     let body = req.body;
 
