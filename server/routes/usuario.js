@@ -40,6 +40,8 @@ app.get('/usuario', verificarToken, function (req, res) {
 
     });                
 });       
+
+//////////////////////////////////////////Agregar la verificacion y subirla a heroku
   
 app.post('/usuario', function (req, res) {
   
